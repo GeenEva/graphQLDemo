@@ -1,6 +1,9 @@
 package eva.graphqldemo.graphqldemo;
 
+import eva.graphqldemo.graphqldemo.products.MyGraphQLProduct;
+import eva.graphqldemo.graphqldemo.products.SphereRequestProductBySku;
 import io.sphere.sdk.client.SphereClient;
+import io.sphere.sdk.client.SphereRequest;
 import io.sphere.sdk.products.ProductProjection;
 import io.sphere.sdk.products.search.ProductProjectionSearch;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +35,9 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public ProductProjection findBySKUGraphQL(String sku) {
-        return null;
+    public MyGraphQLProduct findBySKUGraphQL(String sku) throws ExecutionException, InterruptedException {
+        SphereRequest<MyGraphQLProduct> sphereRequestProductBySku = new SphereRequestProductBySku(sku);
+        return client.execute((sphereRequestProductBySku)).toCompletableFuture().get();
     }
 
 

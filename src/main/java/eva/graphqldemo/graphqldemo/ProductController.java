@@ -17,11 +17,21 @@ public class ProductController {
         this.productService = productService;
     }
 
+
+
     @GetMapping("/myProduct")
     public ResponseEntity getMyProduct(@RequestParam("sku") String sku) throws ExecutionException, InterruptedException {
 
-        return new ResponseEntity<>( (productService.findBySKU(sku).toString()), HttpStatus.OK);
-
+        return new ResponseEntity<>( (productService.findBySKU(sku)), HttpStatus.OK);
     }
+
+
+
+    @GetMapping("/myGraphQLProduct")
+    public ResponseEntity getMyGraphQLProduct(@RequestParam("sku") String sku) throws ExecutionException, InterruptedException {
+
+        return new ResponseEntity<> ( productService.findBySKUGraphQL(sku), HttpStatus.OK);
+    }
+
 
 }
